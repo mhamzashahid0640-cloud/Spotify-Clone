@@ -19,10 +19,12 @@
 ---
 
 ## 🛠️ Tech Stack
-| Frontend | Backend | Tools |
-|----------|---------|-------|
-| 🎨 HTML, CSS, JS | 🟢 Node.js | 🐙 GitHub |
-| ⚛️ React (optional) | 🚀 Express | 🖥️ VS Code |
+
+| Frontend / Backend | Tools       |
+|---------------------|-------------|
+| 🎨 HTML            | 🖥️ VS Code |
+| 🎨 CSS             | 🐙 GitHub  |
+| ⚡ JavaScript      | 🌐 Browser |
 
 ---
 
