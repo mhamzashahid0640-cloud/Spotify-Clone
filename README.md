@@ -1,4 +1,4 @@
-<img width="1362" height="610" alt="image" src="https://github.com/user-attachments/assets/53ddb513-3a07-487a-8237-c9bfe2e2614a" /># 🎵 Spotify Clone  
+# 🎵 Spotify Clone
 
 👋 Hi, I’m **Hamza** — the developer behind this project!  
 
