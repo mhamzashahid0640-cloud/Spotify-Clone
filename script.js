@@ -1,7 +1,7 @@
 let currentSong = new Audio();
 let songs = [];
 let currentIndex = 0;
-let currentPlaylist = '';
+let currentPlaylist = "";
 
 function secondsToMinutesSeconds(seconds) {
   if (isNaN(seconds) || seconds < 0) {
@@ -14,9 +14,9 @@ function secondsToMinutesSeconds(seconds) {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-async function loadSongsFromFolder(folder = '') {
+async function loadSongsFromFolder(folder = "") {
   try {
-    const path = folder ? `songs/${folder}/` : 'songs/';
+    const path = folder ? `songs/${folder}/` : "songs/";
     // let a = await fetch(`http://127.0.0.1:3000/${path}`);
     let a = await fetch(`${path}`);
 
@@ -34,7 +34,7 @@ async function loadSongsFromFolder(folder = '') {
         songsList.push(songName);
       }
     }
-    console.log("Parsed songs for", folder || 'default', ":", songsList);
+    console.log("Parsed songs for", folder || "default", ":", songsList);
     return songsList;
   } catch (error) {
     console.error("Fetch error for folder", folder, ":", error);
@@ -57,7 +57,9 @@ const playMusic = (index, pause = false) => {
     currentSong.pause();
   }
 
-  currentSong.src = `/songs/${currentPlaylist ? currentPlaylist + '/' : ''}${encodeURIComponent(track)}`;
+  currentSong.src = `/songs/${
+    currentPlaylist ? currentPlaylist + "/" : ""
+  }${encodeURIComponent(track)}`;
   currentSong.load();
   document.querySelector(".song-info").innerHTML = decodeURI(track);
   document.querySelector(".song-time").innerHTML = "00:00";
@@ -73,21 +75,24 @@ const playMusic = (index, pause = false) => {
 async function loadPlaylist(playlistName) {
   // Map card names to folder names
   const playlistMap = {
-    'Daku': 'songs',
-    '295': 'songs',
-    'Naat': 'naat' // For if you add a Naat card
+    Daku: "songs",
+    295: "songs",
+    Naat: "naat", // For if you add a Naat card
   };
   const folder = playlistMap[playlistName] || playlistName.toLowerCase();
   currentPlaylist = folder;
   songs = await loadSongsFromFolder(folder);
   if (songs.length === 0) {
     console.warn("No songs in playlist:", playlistName);
-    document.querySelector(".song-info").innerHTML = "No songs in this playlist";
+    document.querySelector(".song-info").innerHTML =
+      "No songs in this playlist";
     return;
   }
 
-  let songUL = document.querySelector(".song-list").getElementsByTagName("ul")[0];
-  songUL.innerHTML = '';
+  let songUL = document
+    .querySelector(".song-list")
+    .getElementsByTagName("ul")[0];
+  songUL.innerHTML = "";
   for (const [index, song] of songs.entries()) {
     songUL.innerHTML += `
       <li data-index="${index}">
@@ -98,7 +103,9 @@ async function loadPlaylist(playlistName) {
       </li>`;
   }
 
-  Array.from(document.querySelector(".song-list").getElementsByTagName("li")).forEach((e) => {
+  Array.from(
+    document.querySelector(".song-list").getElementsByTagName("li")
+  ).forEach((e) => {
     e.addEventListener("click", () => {
       const index = parseInt(e.getAttribute("data-index"));
       console.log("Song clicked in", playlistName, ":", songs[index]);
@@ -110,10 +117,12 @@ async function loadPlaylist(playlistName) {
 }
 
 async function main() {
-  currentPlaylist = '';
+  currentPlaylist = "";
   songs = await loadSongsFromFolder();
-  let songUL = document.querySelector(".song-list").getElementsByTagName("ul")[0];
-  songUL.innerHTML = '';
+  let songUL = document
+    .querySelector(".song-list")
+    .getElementsByTagName("ul")[0];
+  songUL.innerHTML = "";
 
   if (songs.length > 0) {
     playMusic(0, true);
@@ -126,7 +135,9 @@ async function main() {
           <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
         </li>`;
     }
-    Array.from(document.querySelector(".song-list").getElementsByTagName("li")).forEach((e) => {
+    Array.from(
+      document.querySelector(".song-list").getElementsByTagName("li")
+    ).forEach((e) => {
       e.addEventListener("click", () => {
         const index = parseInt(e.getAttribute("data-index"));
         console.log("Song clicked:", songs[index]);
@@ -135,7 +146,8 @@ async function main() {
     });
   } else {
     console.log("No initial songs; waiting for playlist selection");
-    document.querySelector(".song-info").innerHTML = "Select a playlist to load songs";
+    document.querySelector(".song-info").innerHTML =
+      "Select a playlist to load songs";
   }
 
   const play = document.querySelector("#play");
@@ -201,10 +213,13 @@ async function main() {
     document.querySelector(".left").style.left = "-110%";
   });
 
-  document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
-    console.log("Setting Volume to", e.target.value, "/100");
-    currentSong.volume = parseInt(e.target.value) / 100;
-  });
+  document
+    .querySelector(".range")
+    .getElementsByTagName("input")[0]
+    .addEventListener("change", (e) => {
+      console.log("Setting Volume to", e.target.value, "/100");
+      currentSong.volume = parseInt(e.target.value) / 100;
+    });
 
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => {
@@ -216,4 +231,3 @@ async function main() {
   });
 }
 main();
-
