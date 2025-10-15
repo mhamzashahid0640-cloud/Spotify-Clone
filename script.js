@@ -17,7 +17,9 @@ function secondsToMinutesSeconds(seconds) {
 async function loadSongsFromFolder(folder = '') {
   try {
     const path = folder ? `songs/${folder}/` : 'songs/';
-    let a = await fetch(`http://127.0.0.1:3000/${path}`);
+    // let a = await fetch(`http://127.0.0.1:3000/${path}`);
+    let a = await fetch(`${path}`);
+
     if (!a.ok) throw new Error(`HTTP error! Status: ${a.status}`);
     let response = await a.text();
     console.log("Server response for", path, ":", response);
