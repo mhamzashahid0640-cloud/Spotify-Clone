@@ -64,16 +64,16 @@ async function loadSongsFromFolder(folder = "") {
         "songs/Songs/Pal-Pal.mp3"
       ],
       "Naat": [
-        "songs/Naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
-        "songs/Naat/Kabhi Mayoos Mat Hona.mp3",
-        "songs/Naat/Main Banda e Aasi Hoon.mp3",
-        "songs/Naat/shehar-e-muhabbat.mp3",
-        "songs/Naat/Ya Nabi Salam Alaika.mp3"
+        "songs/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
+        "songs/naat/Kabhi Mayoos Mat Hona.mp3",
+        "songs/naat/Main Banda e Aasi Hoon.mp3",
+        "songs/naat/shehar-e-muhabbat.mp3",
+        "songs/naat/Ya Nabi Salam Alaika.mp3"
       ],
       "background-music": [
-        "songs/Background-music/theme.mp3",
-        "songs/Background-music/Down.mp3",
-        "songs/Background-music/relax.mp3"
+        "songs/background-music/theme.mp3",
+        "songs/background-music/Down.mp3",
+        "songs/background-music/relax.mp3",
       ]
     };
 
