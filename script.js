@@ -50,18 +50,18 @@ async function loadSongsFromFolder(folder = "") {
     // ✅ Manually define your song files (Netlify can’t list them automatically)
     const songMap = {
       "": [
-        "songs/songs/295.mp3",
-        "songs/songs/Daku.mp3",
-        "songs/songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
-        "songs/songs/JO-TUM-Mere-HO.mp3",
-        "songs/songs/Pal-Pal.mp3"
+        "songs/Songs/295.mp3",
+        "songs/Songs/Daku.mp3",
+        "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+        "songs/Songs/JO-TUM-Mere-HO.mp3",
+        "songs/Songs/Pal-Pal.mp3"
             ],
       "songs": [
-        "songs/songs/295.mp3",
-        "songs/songs/Daku.mp3",
-        "songs/songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
-        "songs/songs/JO-TUM-Mere-HO.mp3",
-        "songs/songs/Pal-Pal.mp3"
+        "songs/Songs/295.mp3",
+        "songs/Songs/Daku.mp3",
+        "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+        "songs/Songs/JO-TUM-Mere-HO.mp3",
+        "songs/Songs/Pal-Pal.mp3"
       ],
       "naat": [
         "songs/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
@@ -72,6 +72,7 @@ async function loadSongsFromFolder(folder = "") {
       ],
       "background-music": [
         "songs/background-music/theme.mp3",
+        "songs/background-music/Down.mp3",
         "songs/background-music/relax.mp3"
       ]
     };
@@ -125,9 +126,9 @@ async function loadPlaylist(playlistName) {
   const playlistMap = {
     Daku: "songs",
     295: "songs",
-    "Hum Tere Bin Ab Reh Nhi Sakte": "songs",
-    "Jo Tum Mere Ho": "songs",
-    "Pal Pal": "songs",
+    // "Hum Tere Bin Ab Reh Nhi Sakte": "songs",
+    // "Jo Tum Mere Ho": "songs",
+    // "Pal Pal": "songs",
     "Background Music": "background-music",
     "Naat": "naat", // For if you add a Naat card
   };
