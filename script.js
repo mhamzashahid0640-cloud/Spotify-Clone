@@ -1,18 +1,18 @@
-// let currentSong = new Audio();
-// let songs = [];
-// let currentIndex = 0;
-// let currentPlaylist = "";
+let currentSong = new Audio();
+let songs = [];
+let currentIndex = 0;
+let currentPlaylist = "";
 
-// function secondsToMinutesSeconds(seconds) {
-//   if (isNaN(seconds) || seconds < 0) {
-//     return "00:00";
-//   }
-//   const minutes = Math.floor(seconds / 60);
-//   const remainingSeconds = Math.floor(seconds % 60);
-//   const formattedMinutes = String(minutes).padStart(2, "0");
-//   const formattedSeconds = String(remainingSeconds).padStart(2, "0");
-//   return `${formattedMinutes}:${formattedSeconds}`;
-// }
+function secondsToMinutesSeconds(seconds) {
+  if (isNaN(seconds) || seconds < 0) {
+    return "00:00";
+  }
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
 
 // async function loadSongsFromFolder(folder = "") {
 //   try {
@@ -42,268 +42,96 @@
 //   }
 // }
 
-// const playMusic = (index, pause = false) => {
-//   if (index === undefined || index < 0 || index >= songs.length) {
-//     console.warn("Invalid index:", index);
-//     return;
-//   }
-//   const track = songs[index];
-//   if (!track) {
-//     console.warn("No track at index:", index);
-//     return;
-//   }
+async function loadSongsFromFolder(folder = "") {
+  try {
+    // Define base path
+    const path = folder ? `songs/${folder}/` : "songs/";
 
-//   if (!currentSong.paused) {
-//     currentSong.pause();
-//   }
+    // ✅ Manually define your song files (Netlify can’t list them automatically)
+    const songMap = {
+      "": [
+        "songs/songs/295.mp3",
+        "songs/songs/Daku.mp3"
+            ],
+      "songs": [
+        "songs/songs/295.mp3",
+        "songs/songs/Daku.mp3"
+      ],
+      "naat": [
+        "songs/naat/shehar-e-muhabbat.mp3",
+        "songs/naat/Main Banda e Aasi Hoon.mp3"
+      ],
+      "background-music": [
+        "songs/background-music/theme.mp3",
+        "songs/background-music/relax.mp3"
+      ]
+    };
 
-//   currentSong.src = `/songs/${
-//     currentPlaylist ? currentPlaylist + "/" : ""
-//   }${encodeURIComponent(track)}`;
-//   currentSong.load();
-//   document.querySelector(".song-info").innerHTML = decodeURI(track);
-//   document.querySelector(".song-time").innerHTML = "00:00";
+    // Pick songs based on folder
+    const songsList = songMap[folder] || songMap[""];
+    console.log("Loaded songs for", folder || "default", ":", songsList);
 
-//   if (!pause) {
-//     console.log("Attempting to play:", track);
-//     currentSong.play().catch((error) => console.error("Play error:", error));
-//     document.querySelector("#play").src = "pause.svg";
-//   }
-//   currentIndex = index;
-// };
-
-// async function loadPlaylist(playlistName) {
-//   // Map card names to folder names
-//   const playlistMap = {
-//     Daku: "songs",
-//     295: "songs",
-//     Naat: "naat", // For if you add a Naat card
-//   };
-//   const folder = playlistMap[playlistName] || playlistName.toLowerCase();
-//   currentPlaylist = folder;
-//   songs = await loadSongsFromFolder(folder);
-//   if (songs.length === 0) {
-//     console.warn("No songs in playlist:", playlistName);
-//     document.querySelector(".song-info").innerHTML =
-//       "No songs in this playlist";
-//     return;
-//   }
-
-//   let songUL = document
-//     .querySelector(".song-list")
-//     .getElementsByTagName("ul")[0];
-//   songUL.innerHTML = "";
-//   for (const [index, song] of songs.entries()) {
-//     songUL.innerHTML += `
-//       <li data-index="${index}">
-//         <div class="icon"><i class="fa-solid fa-music"></i></div>
-//         <span class="info"><span>${song}</span><div>Hamza</div></span>
-//         <div class="play-now">Play Now</div>
-//         <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
-//       </li>`;
-//   }
-
-//   Array.from(
-//     document.querySelector(".song-list").getElementsByTagName("li")
-//   ).forEach((e) => {
-//     e.addEventListener("click", () => {
-//       const index = parseInt(e.getAttribute("data-index"));
-//       console.log("Song clicked in", playlistName, ":", songs[index]);
-//       playMusic(index);
-//     });
-//   });
-
-//   playMusic(0);
-// }
-
-// async function main() {
-//   currentPlaylist = "";
-//   songs = await loadSongsFromFolder();
-//   let songUL = document
-//     .querySelector(".song-list")
-//     .getElementsByTagName("ul")[0];
-//   songUL.innerHTML = "";
-
-//   if (songs.length > 0) {
-//     playMusic(0, true);
-//     for (const [index, song] of songs.entries()) {
-//       songUL.innerHTML += `
-//         <li data-index="${index}">
-//           <div class="icon"><i class="fa-solid fa-music"></i></div>
-//           <span class="info"><span>${song}</span><div>Hamza</div></span>
-//           <div class="play-now">Play Now</div>
-//           <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
-//         </li>`;
-//     }
-//     Array.from(
-//       document.querySelector(".song-list").getElementsByTagName("li")
-//     ).forEach((e) => {
-//       e.addEventListener("click", () => {
-//         const index = parseInt(e.getAttribute("data-index"));
-//         console.log("Song clicked:", songs[index]);
-//         playMusic(index);
-//       });
-//     });
-//   } else {
-//     console.log("No initial songs; waiting for playlist selection");
-//     document.querySelector(".song-info").innerHTML =
-//       "Select a playlist to load songs";
-//   }
-
-//   const play = document.querySelector("#play");
-//   const previous = document.querySelector("#previous");
-//   const next = document.querySelector("#next");
-
-//   play.addEventListener("click", () => {
-//     console.log("Play clicked");
-//     if (currentSong.paused) {
-//       currentSong.play().catch((error) => console.error("Play error:", error));
-//       play.src = "pause.svg";
-//     } else {
-//       currentSong.pause();
-//       play.src = "play.svg";
-//     }
-//   });
-
-//   previous.addEventListener("click", () => {
-//     console.log("Previous clicked, currentIndex:", currentIndex);
-//     previous.style.pointerEvents = "auto";
-//     let newIndex = currentIndex - 1;
-//     if (newIndex < 0) {
-//       newIndex = 0;
-//     }
-//     playMusic(newIndex);
-//   });
-
-//   next.addEventListener("click", () => {
-//     console.log("Next clicked, currentIndex:", currentIndex);
-//     next.style.pointerEvents = "auto";
-//     let newIndex = currentIndex + 1;
-//     if (newIndex >= songs.length) {
-//       newIndex = songs.length - 1;
-//     }
-//     playMusic(newIndex);
-//   });
-
-//   currentSong.addEventListener("ended", () => {
-//     console.log("Track ended, moving to next");
-//     let newIndex = (currentIndex + 1) % songs.length;
-//     playMusic(newIndex);
-//   });
-
-//   currentSong.addEventListener("timeupdate", () => {
-//     document.querySelector(".song-time").innerHTML = `${secondsToMinutesSeconds(
-//       currentSong.currentTime
-//     )} / ${secondsToMinutesSeconds(currentSong.duration)}`;
-//     document.querySelector(".circle").style.left =
-//       (currentSong.currentTime / currentSong.duration) * 100 + "%";
-//   });
-
-//   document.querySelector(".seek-bar").addEventListener("click", (e) => {
-//     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
-//     document.querySelector(".circle").style.left = percent + "%";
-//     currentSong.currentTime = (currentSong.duration * percent) / 100;
-//   });
-
-//   document.querySelector(".hamburger").addEventListener("click", () => {
-//     document.querySelector(".left").style.left = "0";
-//   });
-
-//   document.querySelector(".close").addEventListener("click", () => {
-//     document.querySelector(".left").style.left = "-110%";
-//   });
-
-//   document
-//     .querySelector(".range")
-//     .getElementsByTagName("input")[0]
-//     .addEventListener("change", (e) => {
-//       console.log("Setting Volume to", e.target.value, "/100");
-//       currentSong.volume = parseInt(e.target.value) / 100;
-//     });
-
-//   const cards = document.querySelectorAll(".card");
-//   cards.forEach((card) => {
-//     card.addEventListener("click", () => {
-//       const playlistName = card.querySelector("h2").innerText.trim();
-//       console.log("Card clicked:", playlistName);
-//       loadPlaylist(playlistName); // Fixed: Pass playlistName
-//     });
-//   });
-// }
-// main();
-
-
-let currentSong = new Audio();
-let songs = [];
-let currentIndex = 0;
-let currentPlaylist = '';
-
-function secondsToMinutesSeconds(seconds) {
-  if (isNaN(seconds) || seconds < 0) return "00:00";
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = Math.floor(seconds % 60);
-  return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
-}
-
-// ✅ Manually list songs in each folder
-async function loadSongsFromFolder(folder = '') {
-  const playlists = {
-    "songs": [
-      "295.mp3",
-      "Daku.mp3"
-    ],
-    "naat": [
-      "naat1.mp3",
-      "naat2.mp3"
-    ],
-    "background-music": [
-      "calm.mp3",
-      "theme.mp3"
-    ]
-  };
-
-  if (folder && playlists[folder]) {
-    return playlists[folder];
+    // ✅ Extract filenames only
+    return songsList.map(song => song.split("/").pop());
+  } catch (error) {
+    console.error("Error loading songs for folder", folder, ":", error);
+    return [];
   }
-
-  // default: combine all
-  return [
-    ...playlists["songs"],
-    ...playlists["naat"],
-    ...playlists["background-music"]
-  ];
 }
+
+
 
 const playMusic = (index, pause = false) => {
-  if (index < 0 || index >= songs.length) return;
-
+  if (index === undefined || index < 0 || index >= songs.length) {
+    console.warn("Invalid index:", index);
+    return;
+  }
   const track = songs[index];
-  const baseFolder = currentPlaylist ? `songs/${currentPlaylist}/` : "songs/";
-  currentSong.src = `/${baseFolder}${encodeURIComponent(track)}`;
-  currentSong.load();
+  if (!track) {
+    console.warn("No track at index:", index);
+    return;
+  }
 
+  if (!currentSong.paused) {
+    currentSong.pause();
+  }
+
+  currentSong.src = `/songs/${
+    currentPlaylist ? currentPlaylist + "/" : ""
+  }${encodeURIComponent(track)}`;
+  currentSong.load();
   document.querySelector(".song-info").innerHTML = decodeURI(track);
   document.querySelector(".song-time").innerHTML = "00:00";
 
   if (!pause) {
-    currentSong.play().catch(err => console.error("Play error:", err));
+    console.log("Attempting to play:", track);
+    currentSong.play().catch((error) => console.error("Play error:", error));
     document.querySelector("#play").src = "pause.svg";
   }
   currentIndex = index;
 };
 
 async function loadPlaylist(playlistName) {
-  currentPlaylist = playlistName.toLowerCase();
-  songs = await loadSongsFromFolder(currentPlaylist);
-
-  const songUL = document.querySelector(".song-list ul");
-  songUL.innerHTML = '';
-
+  // Map card names to folder names
+  const playlistMap = {
+    Daku: "songs",
+    295: "songs",
+    Naat: "naat", // For if you add a Naat card
+  };
+  const folder = playlistMap[playlistName] || playlistName.toLowerCase();
+  currentPlaylist = folder;
+  songs = await loadSongsFromFolder(folder);
   if (songs.length === 0) {
-    document.querySelector(".song-info").innerHTML = "No songs in this playlist";
+    console.warn("No songs in playlist:", playlistName);
+    document.querySelector(".song-info").innerHTML =
+      "No songs in this playlist";
     return;
   }
 
+  let songUL = document
+    .querySelector(".song-list")
+    .getElementsByTagName("ul")[0];
+  songUL.innerHTML = "";
   for (const [index, song] of songs.entries()) {
     songUL.innerHTML += `
       <li data-index="${index}">
@@ -314,9 +142,12 @@ async function loadPlaylist(playlistName) {
       </li>`;
   }
 
-  document.querySelectorAll(".song-list li").forEach((e) => {
+  Array.from(
+    document.querySelector(".song-list").getElementsByTagName("li")
+  ).forEach((e) => {
     e.addEventListener("click", () => {
       const index = parseInt(e.getAttribute("data-index"));
+      console.log("Song clicked in", playlistName, ":", songs[index]);
       playMusic(index);
     });
   });
@@ -325,36 +156,47 @@ async function loadPlaylist(playlistName) {
 }
 
 async function main() {
-  currentPlaylist = '';
+  currentPlaylist = "";
   songs = await loadSongsFromFolder();
+  let songUL = document
+    .querySelector(".song-list")
+    .getElementsByTagName("ul")[0];
+  songUL.innerHTML = "";
 
-  const songUL = document.querySelector(".song-list ul");
-  songUL.innerHTML = '';
-
-  for (const [index, song] of songs.entries()) {
-    songUL.innerHTML += `
-      <li data-index="${index}">
-        <div class="icon"><i class="fa-solid fa-music"></i></div>
-        <span class="info"><span>${song}</span><div>Hamza</div></span>
-        <div class="play-now">Play Now</div>
-        <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
-      </li>`;
-  }
-
-  document.querySelectorAll(".song-list li").forEach((e) => {
-    e.addEventListener("click", () => {
-      const index = parseInt(e.getAttribute("data-index"));
-      playMusic(index);
+  if (songs.length > 0) {
+    playMusic(0, true);
+    for (const [index, song] of songs.entries()) {
+      songUL.innerHTML += `
+        <li data-index="${index}">
+          <div class="icon"><i class="fa-solid fa-music"></i></div>
+          <span class="info"><span>${song}</span><div>Hamza</div></span>
+          <div class="play-now">Play Now</div>
+          <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
+        </li>`;
+    }
+    Array.from(
+      document.querySelector(".song-list").getElementsByTagName("li")
+    ).forEach((e) => {
+      e.addEventListener("click", () => {
+        const index = parseInt(e.getAttribute("data-index"));
+        console.log("Song clicked:", songs[index]);
+        playMusic(index);
+      });
     });
-  });
+  } else {
+    console.log("No initial songs; waiting for playlist selection");
+    document.querySelector(".song-info").innerHTML =
+      "Select a playlist to load songs";
+  }
 
   const play = document.querySelector("#play");
   const previous = document.querySelector("#previous");
   const next = document.querySelector("#next");
 
   play.addEventListener("click", () => {
+    console.log("Play clicked");
     if (currentSong.paused) {
-      currentSong.play();
+      currentSong.play().catch((error) => console.error("Play error:", error));
       play.src = "pause.svg";
     } else {
       currentSong.pause();
@@ -363,37 +205,70 @@ async function main() {
   });
 
   previous.addEventListener("click", () => {
+    console.log("Previous clicked, currentIndex:", currentIndex);
+    previous.style.pointerEvents = "auto";
     let newIndex = currentIndex - 1;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0) {
+      newIndex = 0;
+    }
     playMusic(newIndex);
   });
 
   next.addEventListener("click", () => {
+    console.log("Next clicked, currentIndex:", currentIndex);
+    next.style.pointerEvents = "auto";
     let newIndex = currentIndex + 1;
-    if (newIndex >= songs.length) newIndex = songs.length - 1;
+    if (newIndex >= songs.length) {
+      newIndex = songs.length - 1;
+    }
+    playMusic(newIndex);
+  });
+
+  currentSong.addEventListener("ended", () => {
+    console.log("Track ended, moving to next");
+    let newIndex = (currentIndex + 1) % songs.length;
     playMusic(newIndex);
   });
 
   currentSong.addEventListener("timeupdate", () => {
-    document.querySelector(".song-time").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
-    document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+    document.querySelector(".song-time").innerHTML = `${secondsToMinutesSeconds(
+      currentSong.currentTime
+    )} / ${secondsToMinutesSeconds(currentSong.duration)}`;
+    document.querySelector(".circle").style.left =
+      (currentSong.currentTime / currentSong.duration) * 100 + "%";
   });
 
   document.querySelector(".seek-bar").addEventListener("click", (e) => {
     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
+    document.querySelector(".circle").style.left = percent + "%";
     currentSong.currentTime = (currentSong.duration * percent) / 100;
   });
 
-  document.querySelector(".range input").addEventListener("change", (e) => {
-    currentSong.volume = parseInt(e.target.value) / 100;
+  document.querySelector(".hamburger").addEventListener("click", () => {
+    document.querySelector(".left").style.left = "0";
   });
 
-  document.querySelectorAll(".card").forEach((card) => {
+  document.querySelector(".close").addEventListener("click", () => {
+    document.querySelector(".left").style.left = "-110%";
+  });
+
+  document
+    .querySelector(".range")
+    .getElementsByTagName("input")[0]
+    .addEventListener("change", (e) => {
+      console.log("Setting Volume to", e.target.value, "/100");
+      currentSong.volume = parseInt(e.target.value) / 100;
+    });
+
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
     card.addEventListener("click", () => {
       const playlistName = card.querySelector("h2").innerText.trim();
-      loadPlaylist(playlistName);
+      console.log("Card clicked:", playlistName);
+      loadPlaylist(playlistName); // Fixed: Pass playlistName
     });
   });
 }
-
 main();
+
+
