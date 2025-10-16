@@ -51,7 +51,10 @@ async function loadSongsFromFolder(folder = "") {
     const songMap = {
       "": [
         "songs/songs/295.mp3",
-        "songs/songs/Daku.mp3"
+        "songs/songs/Daku.mp3",
+        "songs/songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+        "songs/songs/JO-TUM-Mere-HO.mp3",
+        "songs/songs/Pal-Pal.mp3"
             ],
       "songs": [
         "songs/songs/295.mp3",
