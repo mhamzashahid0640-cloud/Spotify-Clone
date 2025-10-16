@@ -116,9 +116,10 @@ const playMusic = (index, pause = false) => {
     currentSong.pause();
   }
 
-  currentSong.src = `/songs/${
-    currentPlaylist ? currentPlaylist + "/" : ""
-  }${encodeURIComponent(track)}`;
+ currentSong.src = `songs/${
+  currentPlaylist ? currentPlaylist + "/" : ""
+}${encodeURIComponent(track)}`;
+
   currentSong.load();
   document.querySelector(".song-info").innerHTML = decodeURI(track);
   document.querySelector(".song-time").innerHTML = "00:00";
