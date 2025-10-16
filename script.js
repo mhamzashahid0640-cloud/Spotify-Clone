@@ -125,7 +125,11 @@ async function loadPlaylist(playlistName) {
   const playlistMap = {
     Daku: "songs",
     295: "songs",
-    Naat: "naat", // For if you add a Naat card
+    "Hum Tere Bin Ab Reh Nhi Sakte": "songs",
+    "Jo Tum Mere Ho": "songs",
+    "Pal Pal": "songs",
+    "Background Music": "background-music",
+    "Naat": "naat", // For if you add a Naat card
   };
   const folder = playlistMap[playlistName] || playlistName.toLowerCase();
   currentPlaylist = folder;
