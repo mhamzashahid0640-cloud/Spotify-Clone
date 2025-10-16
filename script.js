@@ -50,11 +50,11 @@ async function loadSongsFromFolder(folder = "") {
     // ✅ Manually define your song files (Netlify can’t list them automatically)
     const songMap = {
       "": [
-        "songs/Songs/295.mp3",
-        "songs/Songs/Daku.mp3",
-        "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
-        "songs/Songs/JO-TUM-Mere-HO.mp3",
-        "songs/Songs/Pal-Pal.mp3"
+        // "songs/Songs/295.mp3",
+        // "songs/Songs/Daku.mp3",
+        // "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+        // "songs/Songs/JO-TUM-Mere-HO.mp3",
+        // "songs/Songs/Pal-Pal.mp3"
             ],
       "songs": [
         "songs/Songs/295.mp3",
@@ -63,7 +63,7 @@ async function loadSongsFromFolder(folder = "") {
         "songs/Songs/JO-TUM-Mere-HO.mp3",
         "songs/Songs/Pal-Pal.mp3"
       ],
-      "Naat": [
+      "naat": [
         "songs/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
         "songs/naat/Kabhi Mayoos Mat Hona.mp3",
         "songs/naat/Main Banda e Aasi Hoon.mp3",
@@ -71,9 +71,9 @@ async function loadSongsFromFolder(folder = "") {
         "songs/naat/Ya Nabi Salam Alaika.mp3"
       ],
       "background-music": [
-        "songs/background-music/theme.mp3",
-        "songs/background-music/Down.mp3",
-        "songs/background-music/relax.mp3",
+        "songs/background-music/By Myself - The Grey Room_Clark Sims.mp3",
+        "songs/background-music/Down The Rabbit Hole -The Grey Room_Density.mp3",
+        "songs/background-music/On The Flip - The Grey Room_Density&time.mp3"
       ]
     };
 
