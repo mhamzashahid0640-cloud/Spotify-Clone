@@ -42,6 +42,16 @@ function secondsToMinutesSeconds(seconds) {
 //   }
 // }
 
+
+
+
+
+
+
+
+
+
+
 async function loadSongsFromFolder(folder = "") {
   try {
     // Define base path
@@ -123,15 +133,23 @@ const playMusic = (index, pause = false) => {
 
 async function loadPlaylist(playlistName) {
   // Map card names to folder names
+  // const playlistMap = {
+  //   Daku: "songs",
+  //   295: "songs",
+  //   // "Hum Tere Bin Ab Reh Nhi Sakte": "songs",
+  //   // "Jo Tum Mere Ho": "songs",
+  //   // "Pal Pal": "songs",
+  //   "background Music": "Background-Music",
+  //   "naat": "Naat", // For if you add a Naat card
+  // };
+
   const playlistMap = {
-    Daku: "songs",
-    295: "songs",
-    // "Hum Tere Bin Ab Reh Nhi Sakte": "songs",
-    // "Jo Tum Mere Ho": "songs",
-    // "Pal Pal": "songs",
-    "background Music": "Background-Music",
-    "naat": "Naat", // For if you add a Naat card
-  };
+  Songs: "songs",
+  // 295: "songs",
+  "Background Music": "background-music",
+  Naat: "naat",
+};
+
   const folder = playlistMap[playlistName] || playlistName.toLowerCase();
   currentPlaylist = folder;
   songs = await loadSongsFromFolder(folder);
