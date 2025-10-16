@@ -116,9 +116,10 @@ const playMusic = (index, pause = false) => {
     currentSong.pause();
   }
 
- currentSong.src = `songs/${
-  currentPlaylist ? currentPlaylist + "/" : ""
+currentSong.src = `songs/${
+  currentPlaylist ? encodeURIComponent(currentPlaylist) + "/" : ""
 }${encodeURIComponent(track)}`;
+
 
   currentSong.load();
   document.querySelector(".song-info").innerHTML = decodeURI(track);
@@ -133,22 +134,11 @@ const playMusic = (index, pause = false) => {
 };
 
 async function loadPlaylist(playlistName) {
-  // Map card names to folder names
-  // const playlistMap = {
-  //   Daku: "songs",
-  //   295: "songs",
-  //   // "Hum Tere Bin Ab Reh Nhi Sakte": "songs",
-  //   // "Jo Tum Mere Ho": "songs",
-  //   // "Pal Pal": "songs",
-  //   "background Music": "Background-Music",
-  //   "naat": "Naat", // For if you add a Naat card
-  // };
 
   const playlistMap = {
   Songs: "songs",
-  // 295: "songs",
-  BackgroundMusic: "background-music",
-  Naat: "naat",
+  "Background Music": "background-music",
+  "Naat": "naat"
 };
 
   const folder = playlistMap[playlistName] || playlistName.toLowerCase();
