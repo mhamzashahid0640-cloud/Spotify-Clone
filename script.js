@@ -146,7 +146,7 @@ async function loadPlaylist(playlistName) {
   const playlistMap = {
   Songs: "songs",
   // 295: "songs",
-  "Background Music": "background-music",
+  BackgroundMusic: "background-music",
   Naat: "naat",
 };
 
