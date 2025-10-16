@@ -55,11 +55,17 @@ async function loadSongsFromFolder(folder = "") {
             ],
       "songs": [
         "songs/songs/295.mp3",
-        "songs/songs/Daku.mp3"
+        "songs/songs/Daku.mp3",
+        "songs/songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+        "songs/songs/JO-TUM-Mere-HO.mp3",
+        "songs/songs/Pal-Pal.mp3"
       ],
       "naat": [
+        "songs/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
+        "songs/naat/Kabhi Mayoos Mat Hona.mp3",
+        "songs/naat/Main Banda e Aasi Hoon.mp3",
         "songs/naat/shehar-e-muhabbat.mp3",
-        "songs/naat/Main Banda e Aasi Hoon.mp3"
+        "songs/naat/Ya Nabi Salam Alaika.mp3"
       ],
       "background-music": [
         "songs/background-music/theme.mp3",
