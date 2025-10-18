@@ -75,8 +75,6 @@ async function loadSongsFromFolder(folder = "") {
       ],
       "naat": [
         "songs/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
-        "songs/naat/Kabhi Mayoos Mat Hona.mp3",
-        "songs/naat/Main Banda e Aasi Hoon.mp3",
         "songs/naat/shehar-e-muhabbat.mp3",
         "songs/naat/Ya Nabi Salam Alaika.mp3"
       ],
