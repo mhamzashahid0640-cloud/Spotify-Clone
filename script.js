@@ -69,8 +69,8 @@ async function loadSongsFromFolder(folder = "") {
       "songs": [
         "songs/Songs/295.mp3",
         "songs/Songs/Daku.mp3",
-        "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
-        "songs/Songs/JO-TUM-Mere-HO.mp3",
+        // "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+        // "songs/Songs/JO-TUM-Mere-HO.mp3",
         "songs/Songs/Pal-Pal.mp3"
       ],
       "naat": [
