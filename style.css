@@ -12,6 +12,10 @@
   display: flex;
 }
 
+.logo{
+  cursor: pointer;
+}
+
 body {
   background-color: black;
   color: white;
@@ -24,6 +28,16 @@ body {
 
 .close img {
   display: none;
+    cursor: pointer;
+
+}
+
+.home-head{
+    cursor: pointer;
+}
+
+.search-head{
+    cursor: pointer;
 }
 
 .right {
@@ -55,6 +69,8 @@ body {
   font-weight: 700;
   font-size: 11px;
   align-items: center;
+    cursor: pointer;
+
 }
 
 .right .header {
@@ -76,6 +92,10 @@ body {
 
 .spotify-playlist {
   padding: 16px;
+}
+
+.playlist-head{
+    cursor: pointer;
 }
 
 .card-container {
