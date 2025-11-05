@@ -1,0 +1,470 @@
+// let currentSong = new Audio();
+// let songs = [];
+// let currentIndex = 0;
+// let currentPlaylist = "";
+
+// function secondsToMinutesSeconds(seconds) {
+//   if (isNaN(seconds) || seconds < 0) {
+//     return "00:00";
+//   }
+//   const minutes = Math.floor(seconds / 60);
+//   const remainingSeconds = Math.floor(seconds % 60);
+//   const formattedMinutes = String(minutes).padStart(2, "0");
+//   const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+//   return `${formattedMinutes}:${formattedSeconds}`;
+// }
+
+// // async function loadSongsFromFolder(folder = "") {
+// //   try {
+// //     const path = folder ? `songs/${folder}/` : "songs/";
+// //     // let a = await fetch(`http://127.0.0.1:3000/${path}`);
+// //     let a = await fetch(`${path}`);
+
+// //     if (!a.ok) throw new Error(`HTTP error! Status: ${a.status}`);
+// //     let response = await a.text();
+// //     console.log("Server response for", path, ":", response);
+// //     let div = document.createElement("div");
+// //     div.innerHTML = response;
+// //     let as = div.getElementsByTagName("a");
+// //     let songsList = [];
+// //     for (let index = 0; index < as.length; index++) {
+// //       const element = as[index];
+// //       let songName = element.innerText.trim();
+// //       if (songName.endsWith(".mp3") && songName !== "") {
+// //         songsList.push(songName);
+// //       }
+// //     }
+// //     console.log("Parsed songs for", folder || "default", ":", songsList);
+// //     return songsList;
+// //   } catch (error) {
+// //     console.error("Fetch error for folder", folder, ":", error);
+// //     return [];
+// //   }
+// // }
+
+
+
+
+
+
+
+
+
+
+
+// async function loadSongsFromFolder(folder = "") {
+//   try {
+//     // Define base path
+//     const path = folder ? `songs/${folder}/` : "songs/";
+
+//     // ✅ Manually define your song files (Netlify can’t list them automatically)
+//     const songMap = {
+//       "": [
+//         // "songs/Songs/295.mp3",
+//         // "songs/Songs/Daku.mp3",
+//         // "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+//         // "songs/Songs/JO-TUM-Mere-HO.mp3",
+//         // "songs/Songs/Pal-Pal.mp3"
+//             ],
+//       "songs": [
+//         "songs/Songs/295.mp3",
+//         "songs/Songs/Daku.mp3",
+//         // "songs/Songs/Hum-Tere-Bin-Ab-Reh-Nhi-Sakte.mp3",
+//         // "songs/Songs/JO-TUM-Mere-HO.mp3",
+//         "songs/Songs/Pal-Pal.mp3"
+//       ],
+//       "naat": [
+//         "songs/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
+//         "songs/naat/shehar-e-muhabbat.mp3",
+//         "songs/naat/Ya Nabi Salam Alaika.mp3"
+//       ],
+//       "background-music": [
+//         "songs/background-music/By Myself - The Grey Room_Clark Sims.mp3",
+//         "songs/background-music/Down The Rabbit Hole -The Grey Room_Density.mp3",
+//         "songs/background-music/On The Flip - The Grey Room_Density&time.mp3"
+//       ]
+//     };
+
+//     // Pick songs based on folder
+//     const songsList = songMap[folder] || songMap[""];
+//     console.log("Loaded songs for", folder || "default", ":", songsList);
+
+//     // ✅ Extract filenames only
+//     return songsList.map(song => song.split("/").pop());
+//   } catch (error) {
+//     console.error("Error loading songs for folder", folder, ":", error);
+//     return [];
+//   }
+// }
+
+
+
+// const playMusic = (index, pause = false) => {
+//   if (index === undefined || index < 0 || index >= songs.length) {
+//     console.warn("Invalid index:", index);
+//     return;
+//   }
+//   const track = songs[index];
+//   if (!track) {
+//     console.warn("No track at index:", index);
+//     return;
+//   }
+
+//   if (!currentSong.paused) {
+//     currentSong.pause();
+//   }
+
+// currentSong.src = `songs/${
+//   currentPlaylist ? encodeURIComponent(currentPlaylist) + "/" : ""
+// }${encodeURIComponent(track)}`;
+
+
+//   currentSong.load();
+//   document.querySelector(".song-info").innerHTML = decodeURI(track);
+//   document.querySelector(".song-time").innerHTML = "00:00";
+
+//   if (!pause) {
+//     console.log("Attempting to play:", track);
+//     currentSong.play().catch((error) => console.error("Play error:", error));
+//     document.querySelector("#play").src = "pause.svg";
+//   }
+//   currentIndex = index;
+// };
+
+// async function loadPlaylist(playlistName) {
+
+//   const playlistMap = {
+//   Songs: "songs",
+//   "Background Music": "background-music",
+//   "Naat": "naat"
+// };
+
+//   const folder = playlistMap[playlistName] || playlistName.toLowerCase();
+//   currentPlaylist = folder;
+//   songs = await loadSongsFromFolder(folder);
+//   if (songs.length === 0) {
+//     console.warn("No songs in playlist:", playlistName);
+//     document.querySelector(".song-info").innerHTML =
+//       "No songs in this playlist";
+//     return;
+//   }
+
+//   let songUL = document
+//     .querySelector(".song-list")
+//     .getElementsByTagName("ul")[0];
+//   songUL.innerHTML = "";
+//   for (const [index, song] of songs.entries()) {
+//     songUL.innerHTML += `
+//       <li data-index="${index}">
+//         <div class="icon"><i class="fa-solid fa-music"></i></div>
+//         <span class="info"><span>${song}</span><div>Hamza</div></span>
+//         <div class="play-now">Play Now</div>
+//         <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
+//       </li>`;
+//   }
+
+//   Array.from(
+//     document.querySelector(".song-list").getElementsByTagName("li")
+//   ).forEach((e) => {
+//     e.addEventListener("click", () => {
+//       const index = parseInt(e.getAttribute("data-index"));
+//       console.log("Song clicked in", playlistName, ":", songs[index]);
+//       playMusic(index);
+//     });
+//   });
+
+//   playMusic(0);
+// }
+
+// async function main() {
+//   currentPlaylist = "";
+//   songs = await loadSongsFromFolder();
+//   let songUL = document
+//     .querySelector(".song-list")
+//     .getElementsByTagName("ul")[0];
+//   songUL.innerHTML = "";
+
+//   if (songs.length > 0) {
+//     playMusic(0, true);
+//     for (const [index, song] of songs.entries()) {
+//       songUL.innerHTML += `
+//         <li data-index="${index}">
+//           <div class="icon"><i class="fa-solid fa-music"></i></div>
+//           <span class="info"><span>${song}</span><div>Hamza</div></span>
+//           <div class="play-now">Play Now</div>
+//           <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
+//         </li>`;
+//     }
+//     Array.from(
+//       document.querySelector(".song-list").getElementsByTagName("li")
+//     ).forEach((e) => {
+//       e.addEventListener("click", () => {
+//         const index = parseInt(e.getAttribute("data-index"));
+//         console.log("Song clicked:", songs[index]);
+//         playMusic(index);
+//       });
+//     });
+//   } else {
+//     console.log("No initial songs; waiting for playlist selection");
+//     document.querySelector(".song-info").innerHTML =
+//       "Select a playlist to load songs";
+//   }
+
+//   const play = document.querySelector("#play");
+//   const previous = document.querySelector("#previous");
+//   const next = document.querySelector("#next");
+
+//   play.addEventListener("click", () => {
+//     console.log("Play clicked");
+//     if (currentSong.paused) {
+//       currentSong.play().catch((error) => console.error("Play error:", error));
+//       play.src = "pause.svg";
+//     } else {
+//       currentSong.pause();
+//       play.src = "play.svg";
+//     }
+//   });
+
+//   previous.addEventListener("click", () => {
+//     console.log("Previous clicked, currentIndex:", currentIndex);
+//     previous.style.pointerEvents = "auto";
+//     let newIndex = currentIndex - 1;
+//     if (newIndex < 0) {
+//       newIndex = 0;
+//     }
+//     playMusic(newIndex);
+//   });
+
+//   next.addEventListener("click", () => {
+//     console.log("Next clicked, currentIndex:", currentIndex);
+//     next.style.pointerEvents = "auto";
+//     let newIndex = currentIndex + 1;
+//     if (newIndex >= songs.length) {
+//       newIndex = songs.length - 1;
+//     }
+//     playMusic(newIndex);
+//   });
+
+//   currentSong.addEventListener("ended", () => {
+//     console.log("Track ended, moving to next");
+//     let newIndex = (currentIndex + 1) % songs.length;
+//     playMusic(newIndex);
+//   });
+
+//   currentSong.addEventListener("timeupdate", () => {
+//     document.querySelector(".song-time").innerHTML = `${secondsToMinutesSeconds(
+//       currentSong.currentTime
+//     )} / ${secondsToMinutesSeconds(currentSong.duration)}`;
+//     document.querySelector(".circle").style.left =
+//       (currentSong.currentTime / currentSong.duration) * 100 + "%";
+//   });
+
+//   document.querySelector(".seek-bar").addEventListener("click", (e) => {
+//     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
+//     document.querySelector(".circle").style.left = percent + "%";
+//     currentSong.currentTime = (currentSong.duration * percent) / 100;
+//   });
+
+//   document.querySelector(".hamburger").addEventListener("click", () => {
+//     document.querySelector(".left").style.left = "0";
+//   });
+
+//   document.querySelector(".close").addEventListener("click", () => {
+//     document.querySelector(".left").style.left = "-110%";
+//   });
+
+//   document
+//     .querySelector(".range")
+//     .getElementsByTagName("input")[0]
+//     .addEventListener("change", (e) => {
+//       console.log("Setting Volume to", e.target.value, "/100");
+//       currentSong.volume = parseInt(e.target.value) / 100;
+//     });
+
+//   const cards = document.querySelectorAll(".card");
+//   cards.forEach((card) => {
+//     card.addEventListener("click", () => {
+//       const playlistName = card.querySelector("h2").innerText.trim();
+//       console.log("Card clicked:", playlistName);
+//       loadPlaylist(playlistName); // Fixed: Pass playlistName
+//     });
+//   });
+// }
+// main();
+
+
+
+let currentSong = new Audio();
+let songs = [];
+let currentIndex = 0;
+let currentPlaylist = "";
+
+// Convert seconds → mm:ss
+function secondsToMinutesSeconds(seconds) {
+  if (isNaN(seconds) || seconds < 0) {
+    return "00:00";
+  }
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+}
+
+// ✅ SONG MAP (Clean paths, works on Vercel)
+async function loadSongsFromFolder(folder = "") {
+  const songMap = {
+    "songs": [
+      "/public/songs/295.mp3",
+      "/public/songs/Daku.mp3",
+      "/public/songs/Pal-Pal.mp3"
+    ],
+    "naat": [
+      "/public/naat/Humne Aankhon Se Dekha Nahi Hai Magar.mp3",
+      "/public/naat/shehar-e-muhabbat.mp3",
+      "/public/naat/Ya Nabi Salam Alaika.mp3"
+    ],
+   
+  };
+
+  console.log("Loaded songs for", folder, ":", songMap[folder]);
+  return songMap[folder] || [];
+}
+
+// ✅ Play selected song
+const playMusic = (index, pause = false) => {
+  if (!songs[index]) {
+    console.warn("Invalid index:", index);
+    return;
+  }
+
+  const track = songs[index];
+  currentSong.pause();
+
+  // ✅ FIXED: Direct path
+  currentSong.src = track;
+  currentSong.load();
+
+  document.querySelector(".song-info").innerHTML = track.split("/").pop();
+  document.querySelector(".song-time").innerHTML = "00:00";
+
+  if (!pause) {
+    console.log("Attempting to play:", track);
+    currentSong.play().catch(error => console.error("Play error:", error));
+    document.querySelector("#play").src = "pause.svg";
+  }
+
+  currentIndex = index;
+};
+
+// ✅ Load playlist when user clicks a card
+async function loadPlaylist(playlistName) {
+  const playlistMap = {
+    "Songs": "songs",
+    "Background Music": "background-music",
+    "Naat": "naat"
+  };
+
+  const folder = playlistMap[playlistName];
+  currentPlaylist = folder;
+
+  songs = await loadSongsFromFolder(folder);
+
+  let songUL = document.querySelector(".song-list ul");
+  songUL.innerHTML = "";
+
+  songs.forEach((song, index) => {
+    const fileName = song.split("/").pop();
+    songUL.innerHTML += `
+      <li data-index="${index}">
+        <div class="icon"><i class="fa-solid fa-music"></i></div>
+        <span class="info"><span>${fileName}</span><div>Hamza</div></span>
+        <div class="play-now">Play Now</div>
+        <div class="icon"><i class="fa-solid fa-circle-play"></i></div>
+      </li>`;
+  });
+
+  // ✅ Add click listeners
+  Array.from(songUL.getElementsByTagName("li")).forEach(li => {
+    li.addEventListener("click", () => {
+      playMusic(parseInt(li.getAttribute("data-index")));
+    });
+  });
+
+  playMusic(0);
+}
+
+// ✅ MAIN APP
+async function main() {
+  // Show "Select a playlist" on load
+  document.querySelector(".song-info").innerHTML = "Select a playlist";
+
+  // ✅ Player buttons
+  const play = document.querySelector("#play");
+  const previous = document.querySelector("#previous");
+  const next = document.querySelector("#next");
+
+  play.addEventListener("click", () => {
+    if (currentSong.paused) {
+      currentSong.play().catch(error => console.error("Play error:", error));
+      play.src = "pause.svg";
+    } else {
+      currentSong.pause();
+      play.src = "play.svg";
+    }
+  });
+
+  previous.addEventListener("click", () => {
+    if (currentIndex > 0) playMusic(currentIndex - 1);
+  });
+
+  next.addEventListener("click", () => {
+    if (currentIndex < songs.length - 1) playMusic(currentIndex + 1);
+  });
+
+  currentSong.addEventListener("ended", () => {
+    let nextIndex = (currentIndex + 1) % songs.length;
+    playMusic(nextIndex);
+  });
+
+  currentSong.addEventListener("timeupdate", () => {
+    const current = currentSong.currentTime;
+    const duration = currentSong.duration;
+
+    document.querySelector(".song-time").innerHTML =
+      `${secondsToMinutesSeconds(current)} / ${secondsToMinutesSeconds(duration)}`;
+
+    document.querySelector(".circle").style.left =
+      (current / duration) * 100 + "%";
+  });
+
+  // ✅ Seek bar
+  document.querySelector(".seek-bar").addEventListener("click", (e) => {
+    const bar = e.target.getBoundingClientRect();
+    const percent = (e.offsetX / bar.width);
+    currentSong.currentTime = currentSong.duration * percent;
+  });
+
+  // ✅ Hamburger menu
+  document.querySelector(".hamburger").addEventListener("click", () => {
+    document.querySelector(".left").style.left = "0";
+  });
+
+  document.querySelector(".close").addEventListener("click", () => {
+    document.querySelector(".left").style.left = "-110%";
+  });
+
+  // ✅ Volume
+  document.querySelector(".range input").addEventListener("change", (e) => {
+    currentSong.volume = e.target.value / 100;
+  });
+
+  // ✅ Cards → playlists
+  document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => {
+      const playlistName = card.querySelector("h2").innerText.trim();
+      console.log("Playlist selected:", playlistName);
+      loadPlaylist(playlistName);
+    });
+  });
+}
+
+main();
