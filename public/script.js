@@ -359,7 +359,6 @@ const playMusic = (index, pause = false) => {
 async function loadPlaylist(playlistName) {
   const playlistMap = {
     "Songs": "songs",
-    "Background Music": "background-music",
     "Naat": "naat"
   };
 
